@@ -1,0 +1,21 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import Subject from './TextIndicator'
+
+<Meta title="Indicator/Text Indicator" component={Subject}/>
+
+# Text Indicator
+
+A read only text field.
+
+## Normal
+
+<Preview>
+  <Story name="Default">
+    <Subject value={'1000'} label="default" />
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>

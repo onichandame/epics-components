@@ -1,0 +1,30 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import Subject from './LineChart'
+
+<Meta title="Chart/Line Chart" component={Subject}/>
+
+# Line Chart
+
+A simple line chart based on [Recharts](http://recharts.org/)
+
+## Default
+
+<Preview>
+  <Story name="Default">
+    {
+      () => {
+        let data = new Map()
+        data.set(1, 1)
+        data.set(2000, 2000)
+        return (
+          <Subject label="line chart" data={data} />
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>
