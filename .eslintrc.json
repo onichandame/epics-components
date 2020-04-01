@@ -8,6 +8,7 @@
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:jest/recommended",
         "standard"
     ],
     "globals": {
@@ -24,7 +25,8 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "jest"
     ],
     "rules": {
     }

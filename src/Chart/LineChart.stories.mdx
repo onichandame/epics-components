@@ -14,11 +14,27 @@ A simple line chart based on [Recharts](http://recharts.org/)
   <Story name="Default">
     {
       () => {
-        let data = new Map()
-        data.set(1, 1)
-        data.set(2000, 2000)
+        let data = [
+          {
+            time: '0',
+            val1: '10',
+            val2: '20'
+          },
+          {
+            time: '2',
+            val1: '50',
+            val2: '80'
+          },
+          {
+            time: '3',
+            val1: '30',
+            val2: '40'
+          }
+        ]
         return (
-          <Subject label="line chart" data={data} />
+          <div style={{display: 'flex', width: '700px', height: '250px'}}>
+            <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+          </div>
         )
       }
     }
