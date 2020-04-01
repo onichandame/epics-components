@@ -1,3 +1,4 @@
+import { useEffect, useReducer } from 'react'
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
 import Subject from './LineChart'
@@ -8,10 +9,10 @@ import Subject from './LineChart'
 
 A simple line chart based on [Recharts](http://recharts.org/)
 
-## Default
+## Basic
 
 <Preview>
-  <Story name="Default">
+  <Story name="Basic">
     {
       () => {
         let data = [
@@ -31,6 +32,36 @@ A simple line chart based on [Recharts](http://recharts.org/)
             val2: '40'
           }
         ]
+        return (
+          <div style={{display: 'flex', width: '700px', height: '250px'}}>
+            <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+          </div>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## Dynamic
+
+<Preview>
+  <Story name="Dynamic">
+    {
+      () => {
+        const [data, dispatch] = useReducer(() => {
+          const time = new Date().getMilliseconds()
+          const base = 2 * Math.PI * time / 60000
+          return (
+            Array.from(Array(120).keys()).map(value => ({
+              time: time + value,
+              val1: Math.sin(time + value * 1),
+              val2: Math.cos(time + value * 1)
+            }))
+          )
+        }, [])
+        useEffect(() => {
+          setInterval(dispatch, 1000)
+        }, [])
         return (
           <div style={{display: 'flex', width: '700px', height: '250px'}}>
             <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />

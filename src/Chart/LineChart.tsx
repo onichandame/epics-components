@@ -37,6 +37,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
+const colors = [
+  '#ff0000',
+  '#00ff00',
+  '#0000ff'
+]
+
 export const LineChart: FC<Props> = ({
   label,
   data,
@@ -60,8 +66,8 @@ export const LineChart: FC<Props> = ({
           <Tooltip />
           <Legend />
           {
-            y.map(value => (
-              <Line key={value} type={'monotone'} dataKey={value} stroke={`#${(Math.random() * 0xffffff << 0).toString(16)}`}/>
+            y.map((value, index) => (
+              <Line isAnimationActive={true} animationDuration={100} dot={false} key={value} type={'monotone'} dataKey={value} stroke={colors[index % colors.length]}/>
             ))
           }
         </LineRechart>
