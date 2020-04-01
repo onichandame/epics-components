@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 type Props={
@@ -14,9 +14,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: theme.palette.background.paper
   },
   bulb: {
-    fontSize: '2rem',
-    verticalAlign: 'middle',
-    lineHeight: '1.5rem'
+    textAlign: 'center',
+    transform: 'rotate(-90deg)'
   },
   normal: {
     color: theme.palette.success.light
@@ -25,22 +24,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.error.light
   },
   label: {
-    fontWeight: 'bold',
-    marginLeft: '.5rem',
-    fontSize: '1.5rem',
-    verticalAlign: 'middle',
-    lineHeight: '1.5rem'
+    fontWeight: 'bold'
   }
 }))
 
 export const BinaryIndicator: FC<Props> = ({ value, label }: Props) => {
   const styles = useStyles()
+  const bulb = useRef<HTMLDivElement>(null)
+  const text = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (text.current && bulb.current) {
+      text.current.style.marginLeft = `${bulb.current.clientHeight * 0.5}px` || '.5rem'
+    }
+  })
   return (
     <div className={styles.root}>
-      <div className={`${styles.bulb} ${value ? styles.normal : styles.error}`}>
-        ⬤
+      <div ref={bulb} className={`${styles.bulb} ${value ? styles.normal : styles.error}`}>
+        █
       </div>
-      <div className={styles.label}>
+      <div ref={text} className={styles.label}>
         {label}
       </div>
     </div>

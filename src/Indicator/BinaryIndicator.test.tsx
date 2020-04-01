@@ -5,6 +5,6 @@ import Subject from './BinaryIndicator'
 
 describe('binary indicator', () => {
   test('renders without crashing', () => {
-    expect(shallow(<Subject label={'normal'} value={true}/>).contains('⬤')).toBeTruthy()
+    expect(shallow(<Subject label={'normal'} value={true}/>).length).toBeTruthy()
   })
 })
