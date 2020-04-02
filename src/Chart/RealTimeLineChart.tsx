@@ -1,7 +1,7 @@
 import React, { FC, ComponentProps } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
-  LineChart as LineRechart,
+  LineChart,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -13,7 +13,7 @@ import {
 
 type Props={
   label: string;
-  data: ComponentProps<typeof LineRechart>['data'];
+  data: ComponentProps<typeof LineChart>['data'];
   x: string;
   y: string[];
 }
@@ -43,7 +43,7 @@ const colors = [
   '#0000ff'
 ]
 
-export const LineChart: FC<Props> = ({
+export const RealTimeLineChart: FC<Props> = ({
   label,
   data,
   x,
@@ -56,7 +56,7 @@ export const LineChart: FC<Props> = ({
         {label}
       </h2>
       <ResponsiveContainer className={styles.chart}>
-        <LineRechart
+        <LineChart
           data={data}
           margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
         >
@@ -70,9 +70,9 @@ export const LineChart: FC<Props> = ({
               <Line isAnimationActive={true} animationDuration={500} dot={false} key={value} type={'monotone'} dataKey={value} stroke={colors[index % colors.length]}/>
             ))
           }
-        </LineRechart>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   )
 }
-export default LineChart
+export default RealTimeLineChart
