@@ -49,6 +49,6 @@ const TextField = () => (
 )
 ```
 
-# LICENSE
+# License
 
 [MIT](https://opensource.org/licenses/MIT)
