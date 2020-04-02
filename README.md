@@ -14,13 +14,13 @@ yarn add epics-components
 
 ```typescript
 import {
-  LineChart,
+  RealTimeLineChart,
   BinaryIndicator,
   TextIndicator
 } from 'epics-components'
 
 const Chart = () => (
-  <LineChart
+  <RealTimeLineChart
     label={'chart'}
     data={[
       {
