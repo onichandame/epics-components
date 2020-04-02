@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps } from 'react'
+import React, { FC, ComponentProps, ReactElement } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -26,11 +26,7 @@ export const ButtonPanelRow: FC = ({ children }: ComponentProps<FC>) => {
   )
 }
 
-type Props={
-  children: typeof ButtonPanelRow | typeof ButtonPanelRow[];
-}
-
-export const ButtonPanel: FC<Props> = ({ children }: Props) => {
+export const ButtonPanel: FC = ({ children }: ComponentProps<FC>) => {
   const styles = useStyles()
   return (
     <div className={styles.root}>
