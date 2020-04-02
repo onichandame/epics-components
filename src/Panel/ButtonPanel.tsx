@@ -27,14 +27,18 @@ export const ButtonPanelRow: FC = ({ children }: ComponentProps<FC>) => {
 }
 
 type Props={
-  children: typeof ButtonPanelRow[];
+  children: typeof ButtonPanelRow | typeof ButtonPanelRow[];
 }
 
 export const ButtonPanel: FC<Props> = ({ children }: Props) => {
   const styles = useStyles()
   return (
     <div className={styles.root}>
-      {children.map(row => (row))}
+      {
+        Array.isArray(children)
+          ? children.map(row => (row))
+          : children
+      }
     </div>
   )
 }
