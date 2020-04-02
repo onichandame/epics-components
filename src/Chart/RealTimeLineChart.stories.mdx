@@ -1,13 +1,13 @@
 import { useEffect, useReducer } from 'react'
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 
-import Subject from './LineChart'
+import Subject from './RealTimeLineChart'
 
-<Meta title="Chart/Line Chart" component={Subject}/>
+<Meta title="Chart/Real Time Line Chart" component={Subject}/>
 
-# Line Chart
+# Real Time Line Chart
 
-A simple line chart based on [Recharts](http://recharts.org/)
+A simple dynamic line chart based on [Recharts](http://recharts.org/)
 
 ## Basic
 
@@ -44,27 +44,34 @@ A simple line chart based on [Recharts](http://recharts.org/)
 
 ## Dynamic
 
+The animation speed is hard coded to fit the refresh rate higher than 2 per second. When the refresh rate is low, the delay between frames is significant.
+
 <Preview>
   <Story name="Dynamic">
     {
       () => {
         const [data, dispatch] = useReducer(() => {
-          const time = new Date().getMilliseconds()
-          const base = 2 * Math.PI * time / 60000
+          const num = 1200
+          const period = 5000
+          const scope = 4 * Math.PI
+          const time = new Date().getTime()
           return (
-            Array.from(Array(120).keys()).map(value => ({
-              time: time + value,
-              val1: Math.sin(time + value * 1),
-              val2: Math.cos(time + value * 1)
-            }))
+            Array.from(Array(num).keys()).map(value => {
+              const coefficient  = 0.0001 * Math.PI
+              return ({
+                time: new Date().toString(),
+                val1: Math.sin(coefficient * (time + 50 * value)),
+                val2: Math.cos(coefficient * (time + 50 * value))
+              })
+            })
           )
         }, [])
         useEffect(() => {
-          setInterval(dispatch, 1000)
+          setInterval(dispatch, 500)
         }, [])
         return (
           <div style={{display: 'flex', width: '700px', height: '250px'}}>
-            <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+            <Subject label="real time line chart" data={data} x={'time'} y={['val1', 'val2']} />
           </div>
         )
       }

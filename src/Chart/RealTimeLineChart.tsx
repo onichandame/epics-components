@@ -67,7 +67,7 @@ export const LineChart: FC<Props> = ({
           <Legend />
           {
             y.map((value, index) => (
-              <Line isAnimationActive={true} animationDuration={100} dot={false} key={value} type={'monotone'} dataKey={value} stroke={colors[index % colors.length]}/>
+              <Line isAnimationActive={true} animationDuration={500} dot={false} key={value} type={'monotone'} dataKey={value} stroke={colors[index % colors.length]}/>
             ))
           }
         </LineRechart>

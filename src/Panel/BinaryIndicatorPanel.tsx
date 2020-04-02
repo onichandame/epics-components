@@ -16,7 +16,7 @@ type Props={
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
-    flexGrow: 0,
+    flexGrow: 1,
     flexDirection: 'row',
     backgroundColor: theme.palette.background.paper
   }
