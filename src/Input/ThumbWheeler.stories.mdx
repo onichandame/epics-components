@@ -1,0 +1,43 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {useReducer} from 'react'
+
+import Subject from './ThumbWheeler'
+
+<Meta title="Input/Thumb Wheeler" component={Subject}/>
+
+# Thumb Wheeler
+
+A simple thumb wheeler used to fine adjust values.
+
+## Basic
+
+<Preview>
+  <Story name="Normal">
+      {
+        () => {
+          const reduce = (state, action) => {
+            switch(action) {
+              case 'increment':
+                return state + 1
+              case 'decrement':
+                return state - 1
+              default:
+                throw new Error(`unknown action ${action}`)
+            }
+          }
+          const [value, dispatch] = useReducer(reduce, 0)
+          return (
+            <Subject
+              value={value}
+              increment={() => dispatch('increment')}
+              decrement={() => dispatch('decrement')}
+            />
+          )
+        }
+      }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>
