@@ -20,10 +20,13 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     flexGrow: 0
   },
-  button: {
+  buttonWrapper: {
     display: 'flex',
     fontWeight: 'bold',
-    fontSize: '1.2rem'
+    fontSize: '1.2rem',
+  },
+  button:{
+    transform: 'rotate(-90deg)'
   },
   dataWrapper: {
     display: 'flex',
@@ -41,12 +44,14 @@ const Thumb: FC<ThumbProps> = ({ children, onClick }: ComponentProps<FC<ThumbPro
   const styles = useStyles()
   return (
     <Button
-      className={styles.button}
+      className={styles.buttonWrapper}
       variant={'contained'}
       color={'primary'}
       onClick={onClick}
     >
-      {children}
+      <div className={styles.button}>
+        {children}
+      </div>
     </Button>
   )
 }
@@ -56,7 +61,7 @@ export const ThumbWheeler: FC<RootProps> = ({ increment, decrement, value }: Roo
   return (
     <div className={styles.root}>
       <Thumb onClick={() => increment()}>
-        &and;
+        ▶
       </Thumb>
       <div className={styles.dataWrapper}>
         <div className={styles.data}>
@@ -64,7 +69,7 @@ export const ThumbWheeler: FC<RootProps> = ({ increment, decrement, value }: Roo
         </div>
       </div>
       <Thumb onClick={() => decrement()}>
-        &or;
+        ◀
       </Thumb>
     </div>
   )
