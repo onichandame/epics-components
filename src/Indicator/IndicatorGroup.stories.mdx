@@ -1,0 +1,76 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {useReducer} from 'react'
+
+import Subject from './IndicatorGroup'
+
+<Meta title="Indicator/Indicator Group" component={Subject}/>
+
+# Indicator Group
+
+A group of indicators that are closely related.
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+      {
+        () => {
+          const data = [
+            {
+              value: true,
+              label: 'step 1'
+            },
+            {
+              value: false,
+              label: 'step 2'
+            },
+            {
+              value: false,
+              label: 'step 3'
+            }
+          ]
+          return (
+            <Subject
+              data={data}
+            />
+          )
+        }
+      }
+  </Story>
+</Preview>
+
+## Large Font
+
+<Preview>
+  <Story name="Large Font">
+      {
+        () => {
+          const data = [
+            {
+              value: true,
+              label: 'step 1'
+            },
+            {
+              value: false,
+              label: 'step 2'
+            },
+            {
+              value: false,
+              label: 'step 3'
+            }
+          ]
+          return (
+            <div style={{ fontSize: '2rem' }}>
+              <Subject
+                data={data}
+              />
+            </div>
+          )
+        }
+      }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>

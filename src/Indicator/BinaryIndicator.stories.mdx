@@ -1,4 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  Grid
+} from '@material-ui/core'
 
 import Subject from './BinaryIndicator'
 
@@ -13,21 +16,57 @@ The color of the indicator follows the rule:
 - **Normal**: `theme.palette.success.main`
 - **Error**: `theme.palette.error.main`
 
-## Normal
+## Basic
 
 <Preview>
-  <Story name="Normal">
+  <Story name="Basic">
     <div style={{fontSize:"1rem"}}>
-    <Subject value={true} label="normal" />
+      <Subject value={true} label="normal" />
+      <Subject value={false} label="error" />
     </div>
   </Story>
 </Preview>
 
-## Error
+## Large Font
 
 <Preview>
-  <Story name="Error">
-    <Subject value={false} label="error" />
+  <Story name="Large Font">
+    <div style={{fontSize:"2rem"}}>
+      <Subject value={true} label="normal" />
+      <Subject value={false} label="error" />
+    </div>
+  </Story>
+</Preview>
+
+## Long Bulb
+
+<Preview>
+  <Story name="Long Bulb">
+    <div style={{fontSize:"1rem"}}>
+      <Subject value={true} size={10} label="normal" />
+      <Subject value={false} size={10} label="error" />
+    </div>
+  </Story>
+</Preview>
+
+## Label Position
+
+<Preview>
+  <Story name="Label Position">
+    <Grid container spacing={2} style={{fontSize:"1rem"}}>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'top'} label="top" />
+      </Grid>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'right'} label="right" />
+      </Grid>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'bottom'} label="bottom" />
+      </Grid>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'left'} label="left" />
+      </Grid>
+    </Grid>
   </Story>
 </Preview>
 

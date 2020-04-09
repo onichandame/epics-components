@@ -12,6 +12,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
+    "dev": "yarn storybook",
     "build:docs": "yarn build-storybook",
     "test": "tsdx test --passWithNoTests",
     "lint": "eslint --ext .ts --ext .tsx src",
