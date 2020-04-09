@@ -1,5 +1,8 @@
 import { useEffect, useReducer } from 'react'
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  Grid
+} from '@material-ui/core'
 
 import Subject from './RealTimeLineChart'
 
@@ -7,7 +10,9 @@ import Subject from './RealTimeLineChart'
 
 # Real Time Line Chart
 
-A simple dynamic line chart based on [Recharts](http://recharts.org/)
+A simple dynamic line chart based on [Recharts](http://recharts.org/).
+
+100% of parent width and height is occupied.
 
 ## Basic
 
@@ -33,8 +38,13 @@ A simple dynamic line chart based on [Recharts](http://recharts.org/)
           }
         ]
         return (
-          <div style={{display: 'flex', width: '700px', height: '250px'}}>
-            <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+          <div style={{ height: '450px', display: 'flex' }}>
+            <div style={{ height: '450px'}}>
+              <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+            </div>
+            <div style={{ height: '250px'}}>
+              <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+            </div>
           </div>
         )
       }
@@ -70,7 +80,7 @@ The animation speed is hard coded to fit the refresh rate higher than 2 per seco
           setInterval(dispatch, 500)
         }, [])
         return (
-          <div style={{display: 'flex', width: '700px', height: '250px'}}>
+          <div style={{height: '250px'}}>
             <Subject label="real time line chart" data={data} x={'time'} y={['val1', 'val2']} />
           </div>
         )
