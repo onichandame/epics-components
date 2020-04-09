@@ -6,8 +6,8 @@ import {
 
 type RootProps={
   value: number;
-  increment(...args: any[]): void;
-  decrement(...args: any[]): void;
+  increment(): void;
+  decrement(): void;
 }
 
 type ThumbProps={
@@ -60,7 +60,7 @@ export const ThumbWheeler: FC<RootProps> = ({ increment, decrement, value }: Roo
   const styles = useStyles()
   return (
     <div className={styles.root}>
-      <Thumb onClick={() => increment()}>
+      <Thumb onClick={(): void => increment()}>
         ▶
       </Thumb>
       <div className={styles.dataWrapper}>
@@ -68,7 +68,7 @@ export const ThumbWheeler: FC<RootProps> = ({ increment, decrement, value }: Roo
           {value}
         </div>
       </div>
-      <Thumb onClick={() => decrement()}>
+      <Thumb onClick={(): void => decrement()}>
         ◀
       </Thumb>
     </div>
