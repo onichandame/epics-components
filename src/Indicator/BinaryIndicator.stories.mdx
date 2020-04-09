@@ -1,4 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  Grid
+} from '@material-ui/core'
 
 import Subject from './BinaryIndicator'
 
@@ -50,12 +53,20 @@ The color of the indicator follows the rule:
 
 <Preview>
   <Story name="Label Position">
-    <div style={{fontSize:"1rem"}}>
-      <Subject value={true} labelPosition={'top'} label="normal" />
-      <Subject value={true} labelPosition={'right'} label="normal" />
-      <Subject value={true} labelPosition={'bottom'} label="normal" />
-      <Subject value={true} labelPosition={'left'} label="normal" />
-    </div>
+    <Grid container spacing={2} style={{fontSize:"1rem"}}>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'top'} label="top" />
+      </Grid>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'right'} label="right" />
+      </Grid>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'bottom'} label="bottom" />
+      </Grid>
+      <Grid item>
+        <Subject value={true} size={8} labelPosition={'left'} label="left" />
+      </Grid>
+    </Grid>
   </Story>
 </Preview>
 

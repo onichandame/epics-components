@@ -14,14 +14,15 @@ type Field={
 
 type Props={
   data: Field[];
+  size?: number;
 }
 
-export const IndicatorGroup: FC<Props> = ({ data }: Props) => {
+export const IndicatorGroup: FC<Props> = ({ data, size = 5 }: Props) => {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       {data.map(field => (
         <Grid key={`indi-grp-${generate({ length: 10 })}`} item>
-          <BinaryIndicator size={3} {...field}/>
+          <BinaryIndicator labelPosition={'bottom'} size={size} {...field}/>
         </Grid>
       ))}
     </Grid>

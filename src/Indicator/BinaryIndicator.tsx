@@ -13,7 +13,6 @@ const useFilamentStyles = makeStyles(() => ({
   root: {
     textAlign: 'center',
     transform: 'rotate(-90deg)'
-
   }
 }))
 
@@ -22,7 +21,7 @@ const Filament: FC = () => {
   const filament = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (filament && filament.current) {
-      filament.current.style.marginLeft = `${filament.current.clientHeight * 0.4}px`
+      filament.current.style.marginLeft = `${filament.current.clientHeight * 0.1}px`
     }
   })
   return (
@@ -38,9 +37,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 0,
     backgroundColor: theme.palette.background.paper
   },
-  bulb: {
+  lampshape: {
     display: 'flex',
-    alignItems: 'center'
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  bulb: {
+    display: 'flex'
   },
   normal: {
     color: theme.palette.success.light
@@ -61,6 +64,7 @@ export const BinaryIndicator: FC<Props> = ({ value, label, labelPosition = 'righ
   useEffect(() => {
     if (text.current) {
       text.current.style.marginLeft = `${text.current.clientHeight * 0.5}px` || '.5rem'
+      text.current.style.marginRight = `${text.current.clientHeight * 0.5}px` || '.5rem'
     }
   })
   let direction: CSSProperties['flexDirection']
@@ -83,12 +87,14 @@ export const BinaryIndicator: FC<Props> = ({ value, label, labelPosition = 'righ
   }
   return (
     <div className={styles.root} style={{ flexDirection: direction }}>
-      <div className={`${value ? styles.normal : styles.error} ${styles.bulb}`}>
-        {
-          Array.from(Array(size)).map(() => (
-            <Filament key={`filament-${generate({ length: 20 })}`}/>
-          ))
-        }
+      <div className={styles.lampshape}>
+        <div className={`${styles.bulb} ${value ? styles.normal : styles.error}`}>
+          {
+            Array.from(Array(size)).map(() => (
+              <Filament key={`filament-${generate({ length: 20 })}`}/>
+            ))
+          }
+        </div>
       </div>
       <div ref={text} className={styles.label}>
         {label}
