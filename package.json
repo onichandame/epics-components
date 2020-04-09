@@ -16,7 +16,7 @@
     "lint": "eslint --ext .ts --ext .tsx src",
     "prepare": "tsdx build",
     "storybook": "start-storybook -p 3000",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook -o ./docs"
   },
   "peerDependencies": {
     "react": ">=16"
