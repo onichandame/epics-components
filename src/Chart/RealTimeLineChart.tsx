@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps } from 'react'
+import React, { FC, ComponentProps, useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid
@@ -19,6 +19,7 @@ type Props={
   data: ComponentProps<typeof LineChart>['data'];
   x: string;
   y: string[];
+  stopOnHover?: boolean;
 }
 
 const useStyles = makeStyles(() => ({
@@ -42,9 +43,15 @@ export const RealTimeLineChart: FC<Props> = ({
   label,
   data,
   x,
-  y
+  y,
+  stopOnHover = true
 }: Props) => {
   const styles = useStyles()
+  const [cache, setCache] = useState<Props['data']>(data)
+  const [sync, setSync] = useState<boolean>(true)
+  useEffect(() => {
+    if (sync) { setCache(data) }
+  })
   return (
     <Grid container spacing={0} className={styles.root}>
       <Grid item xs={12} className={styles.label}>
@@ -53,7 +60,9 @@ export const RealTimeLineChart: FC<Props> = ({
       <Grid item xs={12}>
         <ResponsiveContainer minHeight={'100px'}>
           <LineChart
-            data={data}
+            onMouseOver={(): void => { stopOnHover && setSync(false) }}
+            onMouseLeave={(): void => { stopOnHover && setSync(true) }}
+            data={cache}
             margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3"/>
