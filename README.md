@@ -1,6 +1,6 @@
 # EPICS Components
 
-This library provides standardized components for control systems based on EPICS.
+This library provides standardized components for control systems based on EPICS. Check [this](https://onichandame.github.io/epics-components) for detailed docs.
 
 # Author
 
@@ -52,4 +52,3 @@ const TextField = () => (
 # License
 
 [MIT](https://opensource.org/licenses/MIT)
-
