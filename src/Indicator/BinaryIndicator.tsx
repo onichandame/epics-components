@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef, CSSProperties } from 'react'
 import { generate } from 'randomstring'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -6,6 +6,7 @@ type Props={
   value: boolean;
   label: string;
   size?: number;
+  labelPosition?: 'right' | 'top' | 'bottom' | 'left';
 }
 
 const useFilamentStyles = makeStyles(() => ({
@@ -33,13 +34,13 @@ const Filament: FC = () => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: 'inline-flex',
     flexGrow: 0,
     backgroundColor: theme.palette.background.paper
   },
   bulb: {
-    display: 'flex'
+    display: 'flex',
+    alignItems: 'center'
   },
   normal: {
     color: theme.palette.success.light
@@ -48,11 +49,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.error.light
   },
   label: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    textAlign: 'center'
   }
 }))
 
-export const BinaryIndicator: FC<Props> = ({ value, label, size = 1 }: Props) => {
+export const BinaryIndicator: FC<Props> = ({ value, label, labelPosition = 'right', size = 1 }: Props) => {
   const styles = useStyles()
   const text = useRef<HTMLDivElement>(null)
 
@@ -61,8 +63,26 @@ export const BinaryIndicator: FC<Props> = ({ value, label, size = 1 }: Props) =>
       text.current.style.marginLeft = `${text.current.clientHeight * 0.5}px` || '.5rem'
     }
   })
+  let direction: CSSProperties['flexDirection']
+  switch (labelPosition) {
+    case 'top':
+      direction = 'column-reverse'
+      break
+    case 'right':
+      direction = 'row'
+      break
+    case 'bottom':
+      direction = 'column'
+      break
+    case 'left':
+      direction = 'row-reverse'
+      break
+    default:
+      direction = 'column-reverse'
+      break
+  }
   return (
-    <div className={styles.root}>
+    <div className={styles.root} style={{ flexDirection: direction }}>
       <div className={`${value ? styles.normal : styles.error} ${styles.bulb}`}>
         {
           Array.from(Array(size)).map(() => (

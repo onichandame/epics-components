@@ -13,21 +13,49 @@ The color of the indicator follows the rule:
 - **Normal**: `theme.palette.success.main`
 - **Error**: `theme.palette.error.main`
 
-## Normal
+## Basic
 
 <Preview>
-  <Story name="Normal">
+  <Story name="Basic">
     <div style={{fontSize:"1rem"}}>
-    <Subject value={true} label="normal" />
+      <Subject value={true} label="normal" />
+      <Subject value={false} label="error" />
     </div>
   </Story>
 </Preview>
 
-## Error
+## Large Font
 
 <Preview>
-  <Story name="Error">
-    <Subject value={false} label="error" />
+  <Story name="Large Font">
+    <div style={{fontSize:"2rem"}}>
+      <Subject value={true} label="normal" />
+      <Subject value={false} label="error" />
+    </div>
+  </Story>
+</Preview>
+
+## Long Bulb
+
+<Preview>
+  <Story name="Long Bulb">
+    <div style={{fontSize:"1rem"}}>
+      <Subject value={true} size={10} label="normal" />
+      <Subject value={false} size={10} label="error" />
+    </div>
+  </Story>
+</Preview>
+
+## Label Position
+
+<Preview>
+  <Story name="Label Position">
+    <div style={{fontSize:"1rem"}}>
+      <Subject value={true} labelPosition={'top'} label="normal" />
+      <Subject value={true} labelPosition={'right'} label="normal" />
+      <Subject value={true} labelPosition={'bottom'} label="normal" />
+      <Subject value={true} labelPosition={'left'} label="normal" />
+    </div>
   </Story>
 </Preview>
 
