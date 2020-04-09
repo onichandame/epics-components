@@ -21,7 +21,7 @@ export const IndicatorGroup: FC<Props> = ({ data }: Props) => {
     <Grid container spacing={2}>
       {data.map(field => (
         <Grid key={`indi-grp-${generate({ length: 10 })}`} item>
-          <BinaryIndicator {...field}/>
+          <BinaryIndicator size={3} {...field}/>
         </Grid>
       ))}
     </Grid>

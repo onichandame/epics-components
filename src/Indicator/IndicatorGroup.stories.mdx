@@ -12,7 +12,7 @@ A group of indicators that are closely related.
 ## Basic
 
 <Preview>
-  <Story name="Normal">
+  <Story name="Basic">
       {
         () => {
           const data = [
@@ -33,6 +33,38 @@ A group of indicators that are closely related.
             <Subject
               data={data}
             />
+          )
+        }
+      }
+  </Story>
+</Preview>
+
+## Large Font
+
+<Preview>
+  <Story name="Large Font">
+      {
+        () => {
+          const data = [
+            {
+              value: true,
+              label: 'step 1'
+            },
+            {
+              value: false,
+              label: 'step 2'
+            },
+            {
+              value: false,
+              label: 'step 3'
+            }
+          ]
+          return (
+            <div style={{ fontSize: '2rem' }}>
+              <Subject
+                data={data}
+              />
+            </div>
           )
         }
       }
