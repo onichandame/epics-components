@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core'
 
 type RootProps={
-  value: number;
+  value: number | string;
   increment(): void;
   decrement(): void;
 }
