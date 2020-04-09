@@ -23,9 +23,9 @@ const useStyles = makeStyles(() => ({
   buttonWrapper: {
     display: 'flex',
     fontWeight: 'bold',
-    fontSize: '1.2rem',
+    fontSize: '1.2rem'
   },
-  button:{
+  button: {
     transform: 'rotate(-90deg)'
   },
   dataWrapper: {
