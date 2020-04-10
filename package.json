@@ -15,7 +15,7 @@
     "dev": "yarn storybook",
     "build:docs": "yarn build-storybook",
     "test": "tsdx test --passWithNoTests",
-    "lint": "eslint --ext .ts --ext .tsx src",
+    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx src",
     "prepare": "tsdx build",
     "storybook": "start-storybook -p 3000",
     "build-storybook": "build-storybook -o ./docs"
