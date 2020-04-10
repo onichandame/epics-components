@@ -20,7 +20,7 @@ type Props={
   x: string;
   y: string[];
   pauseOnHover?: boolean;
-}
+} & ComponentProps<typeof ResponsiveContainer>
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -44,7 +44,8 @@ export const RealTimeLineChart: FC<Props> = ({
   data,
   x,
   y,
-  pauseOnHover = true
+  pauseOnHover = true,
+  ...other
 }: Props) => {
   const styles = useStyles()
   const [cache, setCache] = useState<Props['data']>(data)
@@ -58,7 +59,7 @@ export const RealTimeLineChart: FC<Props> = ({
         {label}
       </Grid>
       <Grid item xs={12}>
-        <ResponsiveContainer minHeight={'100px'}>
+        <ResponsiveContainer minHeight={'100px'} {...other}>
           <LineChart
             onMouseOver={(): void => { pauseOnHover && setSync(false) }}
             onMouseLeave={(): void => { pauseOnHover && setSync(true) }}
