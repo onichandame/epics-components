@@ -1,4 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  Grid
+} from '@material-ui/core'
 
 import Subject from './BinaryIndicatorPanel'
 
@@ -6,37 +9,40 @@ import Subject from './BinaryIndicatorPanel'
 
 # Binary Indicator Panel
 
-A panel of binary indicators.
+A panel of binary indicators that takes over all available space of the parent grid.
 
 ## Basic
 
 <Preview>
   <Story name="Basic">
-    <Subject
-      data={[
-        {
-          label: 'data1',
-          value: false
-        },
-        {
-          label: 'data2',
-          value: true
-        },
-        {
-          label: 'data3',
-          value: false
-        },
-        {
-          label: 'data4',
-          value: false
-        },
-        {
-          label: 'data5',
-          value: true
-        },
-      ]}
-      columns={2}
-    />
+    <Grid container>
+      <Grid item xs={2}>
+        <Subject
+          data={[
+            {
+              label: 'data1',
+              value: false
+            },
+            {
+              label: 'data2',
+              value: true
+            },
+            {
+              label: 'data3',
+              value: false
+            },
+            {
+              label: 'data4',
+              value: false
+            },
+            {
+              label: 'data5',
+              value: true
+            },
+          ]}
+        />
+      </Grid>
+    </Grid>
   </Story>
 </Preview>
 
@@ -44,33 +50,34 @@ A panel of binary indicators.
 
 <Preview>
   <Story name="Large Font">
-    <div style={{fontSize:'2rem'}}>
-      <Subject
-        data={[
-          {
-            label: 'data1',
-            value: false
-          },
-          {
-            label: 'data2',
-            value: true
-          },
-          {
-            label: 'data3',
-            value: false
-          },
-          {
-            label: 'data4',
-            value: false
-          },
-          {
-            label: 'data5',
-            value: true
-          },
-        ]}
-        columns={2}
-      />
-    </div>
+    <Grid container style={{ fontSize: '2rem' }}>
+      <Grid item xs={2}>
+        <Subject
+          data={[
+            {
+              label: 'data1',
+              value: false
+            },
+            {
+              label: 'data2',
+              value: true
+            },
+            {
+              label: 'data3',
+              value: false
+            },
+            {
+              label: 'data4',
+              value: false
+            },
+            {
+              label: 'data5',
+              value: true
+            },
+          ]}
+        />
+      </Grid>
+    </Grid>
   </Story>
 </Preview>
 

@@ -1,41 +1,32 @@
 import React, { FC, ComponentProps } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { generate } from 'randomstring'
+import {
+  Grid
+} from '@material-ui/core'
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: 'flex',
-    flexGrow: 1,
-    flexDirection: 'column',
-    backgroundColor: theme.palette.background.paper
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    margin: '1rem 0',
-    backgroundColor: theme.palette.background.paper
-  }
-}))
-
-export const ButtonPanelRow: FC = ({ children }: ComponentProps<FC>) => {
-  const styles = useStyles()
-  return (
-    <div className={styles.row}>
-      {children}
-    </div>
-  )
-}
+const Item: FC = ({ children }: ComponentProps<FC>) => (
+  <Grid item>
+    {children}
+  </Grid>
+)
 
 export const ButtonPanel: FC = ({ children }: ComponentProps<FC>) => {
-  const styles = useStyles()
   return (
-    <div className={styles.root}>
+    <Grid container justify={'center'} spacing={5}>
       {
         Array.isArray(children)
-          ? children.map(row => (row))
-          : children
+          ? children.map(row => (
+            <Item key={`but-pan-${generate({ length: 10 })}`}>
+              {row}
+            </Item>
+          ))
+          : (
+            <Item>
+              {children}
+            </Item>
+          )
       }
-    </div>
+    </Grid>
   )
 }
 export default ButtonPanel

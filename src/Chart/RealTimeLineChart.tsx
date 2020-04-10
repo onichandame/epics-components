@@ -51,7 +51,7 @@ export const RealTimeLineChart: FC<Props> = ({
   const [sync, setSync] = useState<boolean>(true)
   useEffect(() => {
     if (sync) { setCache(data) }
-  })
+  }, [data])
   return (
     <Grid container spacing={0} className={styles.root}>
       <Grid item xs={12} className={styles.label}>
