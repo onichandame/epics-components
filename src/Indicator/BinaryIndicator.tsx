@@ -21,7 +21,7 @@ const Filament: FC = () => {
   const filament = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (filament && filament.current) {
-      filament.current.style.marginLeft = `${filament.current.clientHeight * 0.1}px`
+      filament.current.style.marginLeft = `${filament.current.clientHeight * 0.2}px`
     }
   })
   return (
