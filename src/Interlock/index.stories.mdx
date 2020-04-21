@@ -1,0 +1,61 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Grid } from '@material-ui/core'
+
+import Subject from '.'
+
+<Meta title="Interlock" component={Subject}/>
+
+# Interlock
+
+An interlock list
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <Grid container>
+      <Grid item>
+        <Subject
+          label="basic"
+          entries={[
+            {
+              label: 'interlock1',
+              status: 'normal'
+            },
+            {
+              label: 'interlock2',
+              status: 'error'
+            }
+          ]}
+        />
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## No Label
+
+<Preview>
+  <Story name="No Label">
+    <Grid container>
+      <Grid item>
+        <Subject
+          entries={[
+            {
+              label: 'interlock1',
+              status: 'normal'
+            },
+            {
+              label: 'interlock2',
+              status: 'error'
+            }
+          ]}
+        />
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>
