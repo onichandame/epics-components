@@ -60,28 +60,34 @@ The animation speed is hard coded to fit the refresh rate higher than 2 per seco
   <Story name="Dynamic">
     {
       () => {
-        const [data, dispatch] = useReducer(() => {
-          const num = 1200
-          const period = 5000
-          const scope = 4 * Math.PI
-          const time = new Date().getTime()
-          return (
-            Array.from(Array(num).keys()).map(value => {
-              const coefficient  = 0.0001 * Math.PI
-              return ({
-                time: new Date().toString(),
-                val1: Math.sin(coefficient * (time + 50 * value)),
-                val2: Math.cos(coefficient * (time + 50 * value))
-              })
+        const reducer = (prev) => {
+          let data = JSON.parse(JSON.stringify(prev))
+          if(!Array.isArray(data)) return []
+          if(data.length < 1) {
+            data.push({
+              x: 0,
+              y1: Math.sin(0),
+              y2: Math.cos(0),
             })
-          )
-        }, [])
+          } else {
+            const latest = data[data.length - 1]
+            const x = latest.x + 0.1
+            const y1 = Math.sin(x)
+            const y2 = Math.cos(x)
+            data.push({ x, y1, y2 })
+          }
+          if(data.length > 2000) {
+            data.shift()
+          }
+          return data
+        }
+        const [data, update] = useReducer(reducer, [{ x:0, y1:0, y2:1 }])
         useEffect(() => {
-          setInterval(dispatch, 500)
+          setInterval(update, 500)
         }, [])
         return (
           <div style={{height: '250px'}}>
-            <Subject label="real time line chart" data={data} x={'time'} y={['val1', 'val2']} />
+            <Subject label="real time line chart" data={data} x={'x'} y={['y1', 'y2']} />
           </div>
         )
       }
