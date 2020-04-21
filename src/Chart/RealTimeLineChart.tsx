@@ -59,7 +59,8 @@ export const RealTimeLineChart: FC<Props> = ({
         {label}
       </Grid>
       <Grid item xs={12}>
-        // width set to 100 will break responsiveness
+        {// width set to 100 will break responsiveness
+        }
         <ResponsiveContainer width={'99%'} minHeight={'100px'} {...other}>
           <LineChart
             onMouseOver={(): void => { pauseOnHover && setSync(false) }}
