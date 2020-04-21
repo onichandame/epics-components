@@ -14,13 +14,13 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
-type Props={
+interface Props extends ComponentProps<typeof ResponsiveContainer>{
   label: string;
   data: ComponentProps<typeof LineChart>['data'];
   x: string;
   y: string[];
   pauseOnHover?: boolean;
-} & ComponentProps<typeof ResponsiveContainer>
+}
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -59,7 +59,8 @@ export const RealTimeLineChart: FC<Props> = ({
         {label}
       </Grid>
       <Grid item xs={12}>
-        <ResponsiveContainer minHeight={'100px'} {...other}>
+        // width set to 100 will break responsiveness
+        <ResponsiveContainer width={'99%'} minHeight={'100px'} {...other}>
           <LineChart
             onMouseOver={(): void => { pauseOnHover && setSync(false) }}
             onMouseLeave={(): void => { pauseOnHover && setSync(true) }}

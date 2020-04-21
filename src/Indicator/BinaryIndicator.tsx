@@ -1,34 +1,15 @@
-import React, { FC, useEffect, useRef, CSSProperties } from 'react'
+import React, { FC, useRef, CSSProperties } from 'react'
 import { generate } from 'randomstring'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import {
+  Stop
+} from '@material-ui/icons'
 
 type Props={
   value: boolean;
   label: string;
   size?: number;
   labelPosition?: 'right' | 'top' | 'bottom' | 'left';
-}
-
-const useFilamentStyles = makeStyles(() => ({
-  root: {
-    textAlign: 'center',
-    transform: 'rotate(-90deg)'
-  }
-}))
-
-const Filament: FC = () => {
-  const styles = useFilamentStyles()
-  const filament = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (filament && filament.current) {
-      filament.current.style.marginLeft = `${filament.current.clientHeight * 0.2}px`
-    }
-  })
-  return (
-    <div ref={filament} className={styles.root}>
-      █
-    </div>
-  )
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -46,10 +27,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex'
   },
   normal: {
-    color: theme.palette.success.light
+    fill: theme.palette.success.light
   },
   error: {
-    color: theme.palette.error.light
+    fill: theme.palette.error.light
   },
   label: {
     fontWeight: 'bold',
@@ -61,12 +42,6 @@ export const BinaryIndicator: FC<Props> = ({ value, label, labelPosition = 'righ
   const styles = useStyles()
   const text = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (text.current) {
-      text.current.style.marginLeft = `${text.current.clientHeight * 0.5}px` || '.5rem'
-      text.current.style.marginRight = `${text.current.clientHeight * 0.5}px` || '.5rem'
-    }
-  })
   let direction: CSSProperties['flexDirection']
   switch (labelPosition) {
     case 'top':
@@ -91,7 +66,7 @@ export const BinaryIndicator: FC<Props> = ({ value, label, labelPosition = 'righ
         <div className={`${styles.bulb} ${value ? styles.normal : styles.error}`}>
           {
             Array.from(Array(size)).map(() => (
-              <Filament key={`filament-${generate({ length: 20 })}`}/>
+              <Stop key={`filament-${generate({ length: 20 })}`} className={`${value ? styles.normal : styles.error}`}/>
             ))
           }
         </div>
