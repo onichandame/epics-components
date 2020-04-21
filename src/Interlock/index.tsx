@@ -67,7 +67,7 @@ const useInterlockStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const Interlock: FC<Props> = ({ label, entries }: Props) => {
+export const Interlock: FC<Props> = ({ label, entries }: Props) => {
   const styles = useInterlockStyles()
   return (
     <Grid container spacing={1} direction={'row'} alignItems={'center'} className={styles.root}>
@@ -97,4 +97,3 @@ const Interlock: FC<Props> = ({ label, entries }: Props) => {
     </Grid>
   )
 }
-export default Interlock
