@@ -4,15 +4,15 @@ import {
   Grid
 } from '@material-ui/core'
 
-import Subject from './RealTimeLineChart'
+import { LineChart as Subject } from '.'
 
-<Meta title="Chart/Real Time Line Chart" component={Subject}/>
+<Meta title="Chart/Line Chart" component={Subject}/>
 
-# Real Time Line Chart
+# Line Chart
 
 A simple dynamic line chart based on [Recharts](http://recharts.org/).
 
-100% of parent width and height is occupied.
+100% of parent width and 99% of parent height is occupied. when width is set to 100%, the size is messed up when adjusting the parent width, as per [this issue](https://github.com/recharts/recharts/issues/1423)
 
 ## Basic
 
@@ -39,10 +39,10 @@ A simple dynamic line chart based on [Recharts](http://recharts.org/).
         ]
         return (
           <div style={{ height: '450px', display: 'flex' }}>
-            <div style={{ height: '450px'}}>
+            <div style={{ height: '450px', border: 'solid blue 1px', borderRadius: '.5rem' }}>
               <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
             </div>
-            <div style={{ height: '250px'}}>
+            <div style={{ height: '250px', border: 'solid red 1px', borderRadius: '.5rem' }}>
               <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
             </div>
           </div>
@@ -54,7 +54,7 @@ A simple dynamic line chart based on [Recharts](http://recharts.org/).
 
 ## Dynamic
 
-The animation speed is hard coded to fit the refresh rate higher than 2 per second. When the refresh rate is low, the delay between frames is significant.
+When `pauseOnHover` is true, the re-render is paused on mouse enter event to allow investigation of the numbers. The data is still updated in the background and the latest data is rendered once the mouse leaves the chart.
 
 <Preview>
   <Story name="Dynamic">

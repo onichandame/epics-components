@@ -1,0 +1,27 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useRef } from 'react'
+
+import { ThumbWheeler as Subject } from '.'
+
+<Meta title="Thumb Wheeler" component={Subject}/>
+
+# Thumb Wheeler
+
+A simple thumb wheeler used to fine adjust values.
+
+## Basic
+
+<Preview>
+  <Story name="Normal">
+    {
+      () => {
+        const ref = useRef()
+        return <Subject ref={ref} onChange={e => alert(JSON.stringify(e))} defaultValue={0} step={1} unit={'kg'} />
+      }
+    }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>

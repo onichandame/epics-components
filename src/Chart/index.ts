@@ -1,1 +1,1 @@
-export * from './RealTimeLineChart'
+export * from './LineChart'

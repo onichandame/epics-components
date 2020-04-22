@@ -4,7 +4,7 @@ import {
   Grid
 } from '@material-ui/core'
 import {
-  LineChart,
+  LineChart as MLC,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -16,7 +16,7 @@ import {
 
 interface Props extends ComponentProps<typeof ResponsiveContainer>{
   label: string;
-  data: ComponentProps<typeof LineChart>['data'];
+  data: ComponentProps<typeof MLC>['data'];
   x: string;
   y: string[];
   pauseOnHover?: boolean;
@@ -39,7 +39,7 @@ const colors = [
   '#0000ff'
 ]
 
-export const RealTimeLineChart: FC<Props> = ({
+export const LineChart: FC<Props> = ({
   label,
   data,
   x,
@@ -62,7 +62,7 @@ export const RealTimeLineChart: FC<Props> = ({
         {// width set to 100 will break responsiveness
         }
         <ResponsiveContainer width={'99%'} minHeight={'100px'} {...other}>
-          <LineChart
+          <MLC
             onMouseOver={(): void => { pauseOnHover && setSync(false) }}
             onMouseLeave={(): void => { pauseOnHover && setSync(true) }}
             data={cache}
@@ -78,10 +78,9 @@ export const RealTimeLineChart: FC<Props> = ({
                 <Line isAnimationActive={true} animationDuration={500} dot={false} key={value} type={'monotone'} dataKey={value} stroke={colors[index % colors.length]}/>
               ))
             }
-          </LineChart>
+          </MLC>
         </ResponsiveContainer>
       </Grid>
     </Grid>
   )
 }
-export default RealTimeLineChart

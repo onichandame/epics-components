@@ -1,0 +1,39 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useReducer, useEffect } from 'react'
+
+import { TextField as Subject } from '.'
+
+<Meta title="Text Field" component={Subject}/>
+
+# Text Field
+
+An input field for text
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    return <Subject label="basic" value={100} />
+  </Story>
+</Preview>
+
+## Changing Value
+
+<Preview>
+  <Story name="Changing Value">
+    {
+      () => {
+        const reducer = val => val + 1
+        const [value, update] = useReducer(reducer, 0)
+        useEffect(() => {
+          setInterval(update, 1000)
+        }, [])
+        return <Subject label="changing value" value={value.toString()} />
+      }
+    }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>
