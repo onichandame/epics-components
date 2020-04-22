@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps, useReducer } from 'react'
+import React, { FC, ComponentProps, useRef, useReducer } from 'react'
 import {
   Typography,
   Grid,
@@ -24,17 +24,21 @@ const StyledButton: FC<ComponentProps<typeof Button>> = ({ children, ...other }:
 )
 
 export const ThumbWheeler: FC<Props> = ({ defaultValue, incrementalStep, decrementalStep, unit = '', step = 1, ...other }: Props) => {
-  const reduce = (oldval: number, action: 'increment' | 'decrement'): number =>
-    action === 'increment' ? oldval + (incrementalStep || step) : oldval - (decrementalStep || step)
+  const input = useRef<HTMLInputElement>(null)
+  const reduce = (oldval: number, action: 'increment' | 'decrement'): number => {
+    return action === 'increment' ? oldval + (incrementalStep || step) : oldval - (decrementalStep || step)
+  }
   const [value, update] = useReducer(reduce, defaultValue)
   return (
     <>
       <input
+        ref={input}
         disabled
-        type={'hidden'}
+        hidden={true}
+        type={'number'}
         value={value}
         {...other}
-        onChange={(e): void => alert(e)}
+        onChange={(): void => alert(input.current && input.current.value)}
       />
       <Grid container spacing={1} alignItems={'center'} direction={'column'}>
         <Grid item>

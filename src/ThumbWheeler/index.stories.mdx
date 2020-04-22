@@ -16,7 +16,7 @@ A simple thumb wheeler used to fine adjust values.
     {
       () => {
         const ref = useRef()
-        return <Subject ref={ref} onChange={e => alert(JSON.stringify(e))} defaultValue={0} step={1} unit={'kg'} />
+        return <Subject ref={ref} defaultValue={0} step={1} unit={'kg'} />
       }
     }
   </Story>
