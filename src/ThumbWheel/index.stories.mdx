@@ -1,0 +1,29 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { useRef } from 'react'
+import {
+  Grid
+} from '@material-ui/core'
+
+import { ThumbWheel as Subject } from '.'
+
+<Meta title="Thumb Wheeler" component={Subject}/>
+
+# Thumb Wheeler
+
+A simple thumb wheeler used to fine adjust values. It can be treated as a standard input element as it triggers onBlur and onChange when value is changed.
+
+## Basic
+
+<Preview>
+  <Story name="Normal">
+    <Grid container justify={'start'}>
+      <Grid item>
+        <Subject defaultValue={0} step={1} unit={'kg'} label={'weight'}/>
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Subject}/>
