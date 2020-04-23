@@ -7,13 +7,13 @@ import { TextField as Subject } from '.'
 
 # Text Field
 
-An input field for text
+A text field for value display. Can be used as an input field. `readValue` must be set to the current reading value whereas `value` should be cleared once the form is submitted.
 
 ## Basic
 
 <Preview>
   <Story name="Basic">
-    return <Subject label="basic" value={100} />
+    return <Subject label="basic" readValue={100} />
   </Story>
 </Preview>
 
@@ -28,7 +28,7 @@ An input field for text
         useEffect(() => {
           setInterval(update, 1000)
         }, [])
-        return <Subject label="changing value" value={value.toString()} />
+        return <Subject label="changing value" readValue={value.toString()} />
       }
     }
   </Story>
