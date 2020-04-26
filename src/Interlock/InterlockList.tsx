@@ -4,7 +4,7 @@ import {
   List
 } from '@material-ui/core'
 
-import { Interlock } from '.'
+import { Interlock } from './Interlock'
 
 type Props = {
   entries: ComponentProps<typeof Interlock>[];
