@@ -1,0 +1,32 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Grid } from '@material-ui/core'
+
+import { Interlock } from './Interlock'
+
+<Meta title="Interlock/Interlock" component={Interlock}/>
+
+# Interlock
+
+An interlock widget showing the status of an equipment. There are 3 statuses: normal, error and disconnected
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <Grid container spacing={2} direction={'row'}>
+      <Grid item>
+        <Interlock label="normal" status={'normal'}/>
+      </Grid>
+      <Grid item>
+        <Interlock label="error" status={'error'}/>
+      </Grid>
+      <Grid item>
+        <Interlock label="disconnected" status={'disconnected'}/>
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Interlock}/>
