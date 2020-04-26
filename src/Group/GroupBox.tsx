@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     borderColor: theme.palette.grey[400],
     borderRadius: '.5rem'
+  },
+  legend: {
+    width: 'auto',
+    fontSize: theme.typography.fontSize
   }
 }))
 
@@ -22,7 +26,7 @@ export const GroupBox: FC<Props> = ({ children, label = '', ...other }: Props) =
       className={styles.root}
       {...other}
     >
-      <legend>
+      <legend className={styles.legend}>
         {label}
       </legend>
       {children}
