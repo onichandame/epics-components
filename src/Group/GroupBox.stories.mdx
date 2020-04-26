@@ -1,0 +1,59 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  Grid,
+  TextField
+} from '@material-ui/core'
+
+import { GroupBox as GroupBox } from '.'
+
+<Meta title="Group/Group Box" component={GroupBox}/>
+
+# Group Box
+
+An outlined block that can contain any children
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <Grid container>
+      <Grid item>
+        <GroupBox label={'basic'}>
+          <Grid container spacing={2} alignItems={'center'}>
+            <Grid item>
+              field:
+            </Grid>
+            <Grid item>
+              <TextField variant={'outlined'}/>
+            </Grid>
+          </Grid>
+        </GroupBox>
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## Style
+
+<Preview>
+  <Story name="Style">
+    <Grid container>
+      <Grid item>
+        <GroupBox style={{ borderColor: 'red', fontWeight: 'bold' }} label={'style'}>
+          <Grid container spacing={2} alignItems={'center'}>
+            <Grid item>
+              field:
+            </Grid>
+            <Grid item>
+              <TextField variant={'outlined'}/>
+            </Grid>
+          </Grid>
+        </GroupBox>
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={GroupBox}/>
