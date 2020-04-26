@@ -1,38 +1,31 @@
 import React, { FC, ComponentProps, ReactNode } from 'react'
-import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
-import {
-  Grid
-} from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 
 type Props={
   label?: ReactNode;
-  children?: ComponentProps<typeof Grid>['children'];
-  style?: ComponentProps<typeof Grid>['style'];
-  className?: ComponentProps<typeof Grid>['className'];
-}
+} & ComponentProps<'fieldset'>
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     borderStyle: 'solid',
     borderWidth: '2px',
+    padding: theme.spacing(2),
+    borderColor: theme.palette.grey[400],
     borderRadius: '.5rem'
   }
 }))
 
-export const GroupBox: FC<Props> = ({ children, label = '', style, className }: Props) => {
+export const GroupBox: FC<Props> = ({ children, label = '', ...other }: Props) => {
   const styles = useStyles()
   return (
-    <Grid
-      container
-      component={'fieldset'}
-      className={clsx(styles.root, className)}
-      style={style}
+    <fieldset
+      className={styles.root}
+      {...other}
     >
-      <Grid item component={'legend'}>
+      <legend>
         {label}
-      </Grid>
+      </legend>
       {children}
-    </Grid>
+    </fieldset>
   )
 }
