@@ -8,7 +8,7 @@ import { Interlock } from './Interlock'
 
 type Props = {
   entries: ComponentProps<typeof Interlock>[];
-} & ComponentProps<typeof List>
+}
 
 export const InterlockList: FC<Props> = ({ entries, ...other }: Props) => {
   return (

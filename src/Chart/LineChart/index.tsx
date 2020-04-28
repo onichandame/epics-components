@@ -20,7 +20,8 @@ type Props = {
   abscissa: string;
   ordinates: string[];
   pauseOnHover?: boolean;
-} & ComponentProps<typeof ResponsiveContainer>
+  aspect?: ComponentProps<typeof ResponsiveContainer>['aspect'];
+}
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -45,7 +46,7 @@ export const LineChart: FC<Props> = ({
   abscissa,
   ordinates,
   pauseOnHover = true,
-  ...other
+  aspect
 }: Props) => {
   const styles = useStyles()
   const [cache, setCache] = useState<Props['data']>(data)
@@ -61,7 +62,7 @@ export const LineChart: FC<Props> = ({
       <Grid item xs={12}>
         {// width set to 100 will break responsiveness
         }
-        <ResponsiveContainer width={'99%'} minHeight={'100px'} {...other}>
+        <ResponsiveContainer width={'99%'} minHeight={'100px'} aspect={aspect}>
           <MLC
             onMouseOver={(): void => { pauseOnHover && setSync(false) }}
             onMouseLeave={(): void => { pauseOnHover && setSync(true) }}

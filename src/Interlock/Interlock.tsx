@@ -1,4 +1,4 @@
-import React, { FC, ComponentProps } from 'react'
+import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
   ListItem,
@@ -8,22 +8,19 @@ import {
 import {
   CheckCircle,
   Cancel,
-  Block,
-  SvgIconComponent
+  Block
 } from '@material-ui/icons'
 
 type Status='normal'|'error'|'disconnected'
 
 type IconProps={
   status: Status;
-} & ComponentProps<SvgIconComponent>
+}
 
 type Props={
   label: string;
   status: Status;
 }
-// somehow this prevents status type to be properly defined.
-// & ComponentProps<typeof ListItem>
 
 const useIconStyles = makeStyles((theme: Theme) => ({
   error: {
