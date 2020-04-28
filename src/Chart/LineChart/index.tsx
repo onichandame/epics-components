@@ -14,11 +14,11 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
-interface Props extends ComponentProps<typeof ResponsiveContainer>{
+interface Props {
   label: string;
   data: ComponentProps<typeof MLC>['data'];
-  x: string;
-  y: string[];
+  abscissa: string;
+  ordinates: string[];
   pauseOnHover?: boolean;
 }
 
@@ -42,10 +42,9 @@ const colors = [
 export const LineChart: FC<Props> = ({
   label,
   data,
-  x,
-  y,
-  pauseOnHover = true,
-  ...other
+  abscissa,
+  ordinates,
+  pauseOnHover = true
 }: Props) => {
   const styles = useStyles()
   const [cache, setCache] = useState<Props['data']>(data)
@@ -61,7 +60,7 @@ export const LineChart: FC<Props> = ({
       <Grid item xs={12}>
         {// width set to 100 will break responsiveness
         }
-        <ResponsiveContainer width={'99%'} minHeight={'100px'} {...other}>
+        <ResponsiveContainer width={'99%'} minHeight={'100px'}>
           <MLC
             onMouseOver={(): void => { pauseOnHover && setSync(false) }}
             onMouseLeave={(): void => { pauseOnHover && setSync(true) }}
@@ -69,12 +68,12 @@ export const LineChart: FC<Props> = ({
             margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3"/>
-            <XAxis dataKey={x}/>
+            <XAxis dataKey={abscissa}/>
             <YAxis />
             <Tooltip />
             <Legend />
             {
-              y.map((value, index) => (
+              ordinates.map((value, index) => (
                 <Line isAnimationActive={true} animationDuration={500} dot={false} key={value} type={'monotone'} dataKey={value} stroke={colors[index % colors.length]}/>
               ))
             }

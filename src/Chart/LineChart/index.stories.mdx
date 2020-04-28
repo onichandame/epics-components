@@ -40,10 +40,10 @@ A simple dynamic line chart based on [Recharts](http://recharts.org/).
         return (
           <div style={{ height: '450px', display: 'flex' }}>
             <div style={{ height: '450px', border: 'solid blue 1px', borderRadius: '.5rem' }}>
-              <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+              <Subject label="line chart" data={data} abscissa={'time'} ordinates={['val1', 'val2']} />
             </div>
             <div style={{ height: '250px', border: 'solid red 1px', borderRadius: '.5rem' }}>
-              <Subject label="line chart" data={data} x={'time'} y={['val1', 'val2']} />
+              <Subject label="line chart" data={data} abscissa={'time'} ordinates={['val1', 'val2']} />
             </div>
           </div>
         )
@@ -87,7 +87,7 @@ When `pauseOnHover` is true, the re-render is paused on mouse enter event to all
         }, [])
         return (
           <div style={{height: '250px'}}>
-            <Subject label="real time line chart" data={data} x={'x'} y={['y1', 'y2']} />
+            <Subject label="real time line chart" data={data} abscissa={'x'} ordinates={['y1', 'y2']} />
           </div>
         )
       }

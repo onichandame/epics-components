@@ -3,7 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 type Props={
   label?: ReactNode;
-} & ComponentProps<'fieldset'>
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -19,13 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const GroupBox: FC<Props> = ({ children, label = '', ...other }: Props) => {
+export const GroupBox: FC<Props> = ({ children, label = '' }: ComponentProps<FC<Props>>) => {
   const styles = useStyles()
   return (
-    <fieldset
-      className={styles.root}
-      {...other}
-    >
+    <fieldset className={styles.root}>
       <legend className={styles.legend}>
         {label}
       </legend>
