@@ -1,9 +1,9 @@
 import React, { FC, ComponentProps, ReactNode } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 
-type Props={
+type Props = {
   label?: ReactNode;
-}
+} & ComponentProps<'fieldset'>
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const GroupBox: FC<Props> = ({ children, label = '' }: ComponentProps<FC<Props>>) => {
+export const GroupBox: FC<Props> = ({ children, label = '', ...other }: Props) => {
   const styles = useStyles()
   return (
-    <fieldset className={styles.root}>
+    <fieldset className={styles.root} {...other}>
       <legend className={styles.legend}>
         {label}
       </legend>

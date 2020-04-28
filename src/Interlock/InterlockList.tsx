@@ -8,11 +8,11 @@ import { Interlock } from './Interlock'
 
 type Props = {
   entries: ComponentProps<typeof Interlock>[];
-}
+} & ComponentProps<typeof List>
 
-export const InterlockList: FC<Props> = ({ entries }: Props) => {
+export const InterlockList: FC<Props> = ({ entries, ...other }: Props) => {
   return (
-    <List dense={true}>
+    <List dense={true} {...other}>
       {
         entries.map(entry => (
           <Interlock key={`interlock-list-item-${generate({ length: 20 })}`} {...entry}/>

@@ -11,10 +11,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const FieldLabel: FC = ({ children }: ComponentProps<FC>) => {
+type Props = ComponentProps<typeof Typography>
+
+export const FieldLabel: FC<Props> = ({ children, ...other }: Props) => {
   const styles = useStyles()
   return (
-    <Typography variant={'h6'} className={styles.root}>
+    <Typography variant={'h6'} className={styles.root} {...other}>
       <Grid container direction={'row'}>
         <Grid item>
           {children}

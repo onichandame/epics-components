@@ -1,4 +1,4 @@
-import React, { FC, useRef, ReactNode } from 'react'
+import React, { FC, ComponentProps, useRef, ReactNode } from 'react'
 import {
   Grid,
   TextField as MTF
@@ -9,9 +9,9 @@ import { FieldLabel } from '../Common'
 type Props = {
   label: ReactNode;
   readValue: ReactNode;
-}
+} & ComponentProps<typeof MTF>
 
-export const TextField: FC<Props> = ({ label, readValue }: Props) => {
+export const TextField: FC<Props> = ({ label, readValue, ...other }: Props) => {
   const input = useRef<HTMLInputElement>(null)
   return (
     <Grid container spacing={1} alignItems={'center'} direction={'row'}>
@@ -25,6 +25,7 @@ export const TextField: FC<Props> = ({ label, readValue }: Props) => {
           ref={input}
           variant={'outlined'}
           label={readValue}
+          {...other}
         />
       </Grid>
     </Grid>

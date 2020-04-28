@@ -15,7 +15,7 @@ type Props = {
   defaultValue: number; // only expect number
   label?: string;
   unit?: string;
-}
+} & ComponentProps<'input'>
 
 const StyledButton: FC<ComponentProps<typeof Button>> = ({ children }: ComponentProps<typeof Button>) => (
   <Button variant="contained" color="primary">
@@ -23,9 +23,9 @@ const StyledButton: FC<ComponentProps<typeof Button>> = ({ children }: Component
   </Button>
 )
 
-export const ThumbWheel: FC<Props> = ({ defaultValue, label = '', unit = '' }: Props) => {
+export const ThumbWheel: FC<Props> = ({ label = '', unit = '', ...other }: Props) => {
   const input = useRef<HTMLInputElement>(null)
-  const [value, setValue] = useState<number>(defaultValue)
+  const [value, setValue] = useState<number>(other.defaultValue)
   const update = (action: 'increment' | 'decrement'): void => {
     if (input.current) {
       switch (action) {
@@ -44,11 +44,11 @@ export const ThumbWheel: FC<Props> = ({ defaultValue, label = '', unit = '' }: P
   return (
     <>
       <input
-        defaultValue={defaultValue}
         ref={input}
         disabled
         hidden={true}
         type={'number'}
+        {...other}
       />
       <Grid container direction={'row'} alignItems={'center'} spacing={1}>
         <Grid item>

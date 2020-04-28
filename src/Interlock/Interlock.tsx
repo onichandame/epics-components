@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, ComponentProps } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
   ListItem,
@@ -8,18 +8,19 @@ import {
 import {
   CheckCircle,
   Cancel,
-  Block
+  Block,
+  SvgIconComponent
 } from '@material-ui/icons'
 
 type Status='normal'|'error'|'disconnected'
 
 type IconProps={
   status: Status;
-}
+} & ComponentProps<SvgIconComponent>
 
 type Props={
   label: string;
-} & IconProps
+} & IconProps & ComponentProps<typeof ListItem>
 
 const useIconStyles = makeStyles((theme: Theme) => ({
   error: {
@@ -33,15 +34,15 @@ const useIconStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const Icon: FC<IconProps> = ({ status }: IconProps) => {
+const Icon: FC<IconProps> = ({ status, ...other }: IconProps) => {
   const styles = useIconStyles()
   switch (status) {
     case 'normal':
-      return <CheckCircle className={styles.normal}/>
+      return <CheckCircle className={styles.normal} {...other}/>
     case 'error':
-      return <Cancel className={styles.error}/>
+      return <Cancel className={styles.error} {...other}/>
     default:
-      return <Block className={styles.disconnected}/>
+      return <Block className={styles.disconnected} {...other}/>
   }
 }
 
@@ -60,10 +61,10 @@ const useInterlockStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const Interlock: FC<Props> = ({ label, status }: Props) => {
+export const Interlock: FC<Props> = ({ label, status, ...other }: Props) => {
   const styles = useInterlockStyles()
   return (
-    <ListItem className={status === 'normal' ? styles.normal : (status === 'error' ? styles.error : styles.disconnected)}>
+    <ListItem className={status === 'normal' ? styles.normal : (status === 'error' ? styles.error : styles.disconnected)} {...other}>
       <ListItemIcon>
         <Icon status={status}/>
       </ListItemIcon>

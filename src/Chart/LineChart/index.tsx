@@ -14,13 +14,13 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
-interface Props {
+type Props = {
   label: string;
   data: ComponentProps<typeof MLC>['data'];
   abscissa: string;
   ordinates: string[];
   pauseOnHover?: boolean;
-}
+} & ComponentProps<typeof ResponsiveContainer>
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -44,7 +44,8 @@ export const LineChart: FC<Props> = ({
   data,
   abscissa,
   ordinates,
-  pauseOnHover = true
+  pauseOnHover = true,
+  ...other
 }: Props) => {
   const styles = useStyles()
   const [cache, setCache] = useState<Props['data']>(data)
@@ -60,7 +61,7 @@ export const LineChart: FC<Props> = ({
       <Grid item xs={12}>
         {// width set to 100 will break responsiveness
         }
-        <ResponsiveContainer width={'99%'} minHeight={'100px'}>
+        <ResponsiveContainer width={'99%'} minHeight={'100px'} {...other}>
           <MLC
             onMouseOver={(): void => { pauseOnHover && setSync(false) }}
             onMouseLeave={(): void => { pauseOnHover && setSync(true) }}
