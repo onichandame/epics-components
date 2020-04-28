@@ -17,8 +17,8 @@ type Props = {
   unit?: string;
 } & ComponentProps<'input'>
 
-const StyledButton: FC<ComponentProps<typeof Button>> = ({ children }: ComponentProps<typeof Button>) => (
-  <Button variant="contained" color="primary">
+const StyledButton: FC<ComponentProps<typeof Button>> = ({ children, ...other }: ComponentProps<typeof Button>) => (
+  <Button variant="contained" color="primary" {...other}>
     {children}
   </Button>
 )
@@ -46,7 +46,7 @@ export const ThumbWheel: FC<Props> = ({ label = '', unit = '', ...other }: Props
       <input
         ref={input}
         disabled
-        hidden={true}
+        hidden
         type={'number'}
         {...other}
       />
