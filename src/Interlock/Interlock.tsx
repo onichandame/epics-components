@@ -20,7 +20,10 @@ type IconProps={
 
 type Props={
   label: string;
-} & IconProps & ComponentProps<typeof ListItem>
+  status: Status;
+}
+// somehow this prevents status type to be properly defined.
+// & ComponentProps<typeof ListItem>
 
 const useIconStyles = makeStyles((theme: Theme) => ({
   error: {
