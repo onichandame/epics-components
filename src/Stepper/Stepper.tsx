@@ -17,7 +17,7 @@ type StepProps={
 
 type Props={
   steps: StepProps[];
-} & ComponentProps<typeof MST>
+} & Omit<ComponentProps<typeof MST>, 'children'>
 
 export const Stepper: FC<Props> = ({ steps, ...other }: Props) => {
   const activeStep = useMemo<number>((): number => {
