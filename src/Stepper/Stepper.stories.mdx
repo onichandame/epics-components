@@ -1,0 +1,132 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Grid } from '@material-ui/core'
+import { useReducer, useEffect } from 'react'
+
+import { Stepper } from '.'
+
+<Meta title="Stepper/Stepper" component={Stepper}/>
+
+# Stepper
+
+A stepper indicating the status of each step.
+
+## Horizontal
+
+<Preview>
+  <Story name="Horizontal">
+    <Grid container>
+      <Grid item xs={12}>
+        <Stepper steps={
+          [
+            {
+              label: 'step1',
+              status: 'done'
+            },
+            {
+              label: 'step2',
+              status: 'error'
+            },
+            {
+              label: 'step3',
+              status: 'doing'
+            }
+          ]
+        }
+        />
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## Vertical
+
+<Preview>
+  <Story name="Vertical">
+    <Grid container>
+      <Grid item xs={12}>
+        <Stepper
+          orientation={'vertical'}
+          steps={
+            [
+              {
+                label: 'step1',
+                status: 'done'
+              },
+              {
+                label: 'step2',
+                status: 'error'
+              },
+              {
+                label: 'step3',
+                status: 'doing'
+              }
+            ]
+          }
+        />
+      </Grid>
+    </Grid>
+  </Story>
+</Preview>
+
+## Dynamic
+
+<Preview>
+  <Story name="Dynamic">
+    {
+      () => {
+        const initial = [
+          {
+            label: 'step1',
+            status: 'doing'
+          },
+          {
+            label: 'step2',
+            status: 'standby'
+          },
+          {
+            label: 'step3',
+            status: 'standby'
+          },
+          {
+            label: 'step4',
+            status: 'standby'
+          },
+          {
+            label: 'step5',
+            status: 'standby'
+          }
+        ]
+        const reduce = oldval => {
+          if(oldval[oldval.length-1].status === 'done'){
+            oldval.forEach(step => {
+              step.status = 'standby'
+            })
+          }
+          let current = 0
+          for(let index = current; index < oldval.length; index++){
+            if(oldval[index].status === 'doing') current = index
+          }
+          oldval[current].status = 'done'
+          if(current < oldval.length - 1) oldval[current+1].status = 'doing'
+          return JSON.parse(JSON.stringify(oldval))
+        }
+        const [steps, update] = useReducer(reduce, initial)
+        useEffect(() => setInterval(() => {update()}, 1000), [])
+        return (
+          <Grid container>
+            <Grid item>
+              <Stepper
+                orientation={'vertical'}
+                steps={steps}
+              />
+            </Grid>
+          </Grid>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Stepper}/>
