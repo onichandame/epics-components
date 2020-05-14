@@ -1,0 +1,42 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Grid } from '@material-ui/core'
+
+import { useInterlock } from './useInterlock'
+
+<Meta title="hooks/useInterlock" />
+
+# useInterlock
+
+The main hook used to create interlock components.
+
+## Basic
+
+Read-only interlocks
+
+<Preview>
+  <Story name="Basic">
+    {
+      () => {
+        const test = useInterlock({ label: 'interlock' })
+        let {Interlock} = test
+        let locks = ['normal', 'error', 'disconnected']
+        locks = locks.map(lock=>useInterlock({label:lock, defaultStatus:lock}))
+        return (
+          <Grid container spacing={2} direction={'row'}>
+            {
+              locks.map(({Interlock}) => 
+                <Grid item>
+                  <Interlock />
+                </Grid>
+              )
+            }
+          </Grid>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={useInterlock}/>
