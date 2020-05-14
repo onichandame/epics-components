@@ -1,29 +1,29 @@
 import React, { FC, ComponentProps, useRef, useState } from 'react'
-import {
-  Typography,
-  Grid,
-  Button
-} from '@material-ui/core'
-import {
-  KeyboardArrowUp,
-  KeyboardArrowDown
-} from '@material-ui/icons'
+import { Typography, Grid, Button } from '@material-ui/core'
+import { KeyboardArrowUp, KeyboardArrowDown } from '@material-ui/icons'
 
 import { FieldLabel } from '../Common'
 
 type Props = {
-  defaultValue: number; // only expect number
-  label?: string;
-  unit?: string;
+  defaultValue: number // only expect number
+  label?: string
+  unit?: string
 } & ComponentProps<'input'>
 
-const StyledButton: FC<ComponentProps<typeof Button>> = ({ children, ...other }: ComponentProps<typeof Button>) => (
+const StyledButton: FC<ComponentProps<typeof Button>> = ({
+  children,
+  ...other
+}: ComponentProps<typeof Button>) => (
   <Button variant="contained" color="primary" {...other}>
     {children}
   </Button>
 )
 
-export const ThumbWheel: FC<Props> = ({ label = '', unit = '', ...other }: Props) => {
+export const ThumbWheel: FC<Props> = ({
+  label = '',
+  unit = '',
+  ...other
+}: Props) => {
   const input = useRef<HTMLInputElement>(null)
   const [value, setValue] = useState<number>(other.defaultValue)
   const update = (action: 'increment' | 'decrement'): void => {
@@ -43,22 +43,18 @@ export const ThumbWheel: FC<Props> = ({ label = '', unit = '', ...other }: Props
   }
   return (
     <>
-      <input
-        ref={input}
-        disabled
-        hidden
-        type={'number'}
-        {...other}
-      />
+      <input ref={input} disabled hidden type={'number'} {...other} />
       <Grid container direction={'row'} alignItems={'center'} spacing={1}>
         <Grid item>
-          <FieldLabel>
-            {label}
-          </FieldLabel>
+          <FieldLabel>{label}</FieldLabel>
         </Grid>
         <Grid item>
-
-          <Grid container spacing={1} alignItems={'center'} direction={'column'}>
+          <Grid
+            container
+            spacing={1}
+            alignItems={'center'}
+            direction={'column'}
+          >
             <Grid item>
               <StyledButton onClick={(): void => update('increment')}>
                 <KeyboardArrowUp />

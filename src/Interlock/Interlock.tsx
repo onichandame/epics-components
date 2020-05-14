@@ -1,17 +1,14 @@
 import React, { FC, ComponentProps } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { CheckCircle, Cancel, Block } from '@material-ui/icons'
+import { Block } from '@material-ui/icons'
 
 import { InterlockStatus as Status } from '../types'
-
-type IconProps = {
-  status: Status
-}
 
 type Props = {
   label: string
   status: Status
+  ignored?: boolean
 } & ComponentProps<typeof ListItem>
 
 const useIconStyles = makeStyles((theme: Theme) => ({
@@ -26,16 +23,9 @@ const useIconStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const Icon: FC<IconProps> = ({ status, ...other }: IconProps) => {
+const Icon: FC<{ ignored: boolean }> = ({ ignored, ...other }) => {
   const styles = useIconStyles()
-  switch (status) {
-    case 'normal':
-      return <CheckCircle className={styles.normal} {...other} />
-    case 'error':
-      return <Cancel className={styles.error} {...other} />
-    default:
-      return <Block className={styles.disconnected} {...other} />
-  }
+  return ignored ? <Block className={styles.disconnected} {...other} /> : <></>
 }
 
 const useInterlockStyles = makeStyles((theme: Theme) => ({
@@ -53,7 +43,12 @@ const useInterlockStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-export const Interlock: FC<Props> = ({ label, status, ...other }: Props) => {
+export const Interlock: FC<Props> = ({
+  label,
+  status,
+  ignored = false,
+  ...other
+}) => {
   const styles = useInterlockStyles()
   return (
     <ListItem
@@ -67,7 +62,7 @@ export const Interlock: FC<Props> = ({ label, status, ...other }: Props) => {
       {...other}
     >
       <ListItemIcon>
-        <Icon status={status} />
+        <Icon ignored={ignored} />
       </ListItemIcon>
       <ListItemText primary={label} className={styles.label} />
     </ListItem>

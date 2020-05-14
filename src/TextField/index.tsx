@@ -1,14 +1,11 @@
 import React, { FC, ComponentProps, useRef, ReactNode } from 'react'
-import {
-  Grid,
-  TextField as MTF
-} from '@material-ui/core'
+import { Grid, TextField as MTF } from '@material-ui/core'
 
 import { FieldLabel } from '../Common'
 
 type Props = {
-  label: ReactNode;
-  readValue: ReactNode;
+  label: ReactNode
+  readValue: ReactNode
 } & ComponentProps<typeof MTF>
 
 export const TextField: FC<Props> = ({ label, readValue, ...other }: Props) => {
@@ -16,17 +13,10 @@ export const TextField: FC<Props> = ({ label, readValue, ...other }: Props) => {
   return (
     <Grid container spacing={1} alignItems={'center'} direction={'row'}>
       <Grid item>
-        <FieldLabel>
-          {label}
-        </FieldLabel>
+        <FieldLabel>{label}</FieldLabel>
       </Grid>
       <Grid item>
-        <MTF
-          ref={input}
-          variant={'outlined'}
-          label={readValue}
-          {...other}
-        />
+        <MTF ref={input} variant={'outlined'} label={readValue} {...other} />
       </Grid>
     </Grid>
   )

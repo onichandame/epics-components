@@ -48,6 +48,7 @@ export const useInterlock = ({
     return (
       <div>
         <Lock
+          ignored={ignored}
           button={!ignorable || latching || activated ? true : undefined}
           onClick={({ currentTarget }) => setAnchor(currentTarget)}
           label={label}

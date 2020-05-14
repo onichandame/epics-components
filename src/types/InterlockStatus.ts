@@ -1,1 +1,1 @@
-export type InterlockStatus ='normal'|'error'|'disconnected'
+export type InterlockStatus = 'normal' | 'error' | 'disconnected'
