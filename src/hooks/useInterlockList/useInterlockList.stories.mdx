@@ -1,0 +1,70 @@
+import { useEffect, useReducer } from 'react'
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Grid, Button } from '@material-ui/core'
+
+import { useInterlockList } from './useInterlockList'
+
+<Meta title="hooks/useInterlockList" />
+
+# useInterlockList
+
+A convenient hook used to create a list of interlock components with some useful statuses: `latched` and `ignored`
+
+## Basic
+
+Read-only interlocks
+
+<Preview>
+  <Story name="Basic">
+    {
+      () => {
+        const { InterlockList } = useInterlockList({entries: [{ label: 'normal', status: 'normal' }, {label: 'error', status: 'error'}]})
+        return (
+          <Grid container spacing={2} direction={'row'} aalignItems={'center'}>
+            <Grid item>
+              <InterlockList />
+            </Grid>
+          </Grid>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## Actionable
+
+Interlock list with actions
+
+<Preview>
+  <Story name="Actionable">
+    {
+      () => {
+        const { InterlockList, resetAll,ignoreAll,unignoreAll } = useInterlockList({entries: [{ label: 'normal', status: 'normal', ignorable: true }, {label: 'error', status: 'error', ignorable: true}]})
+        return (
+          <Grid container spacing={2} direction={'row'} aalignItems={'center'}>
+            <Grid item>
+              <InterlockList />
+            </Grid>
+            <Grid item>
+              <Grid container direction={'column'} spacing={1}>
+                <Grid item>
+                  <Button variant={'contained'} onClick={resetAll}>reset all</Button>
+                </Grid>
+                <Grid item>
+                  <Button variant={'contained'} onClick={ignoreAll}>ignore all</Button>
+                </Grid>
+                <Grid item>
+                  <Button variant={'contained'} onClick={unignoreAll}>unignore all</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={useInterlockList}/>

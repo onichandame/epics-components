@@ -74,6 +74,7 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
+    "clsx": "^1.1.0",
     "randomstring": "^1.1.5"
   },
   "jest": {

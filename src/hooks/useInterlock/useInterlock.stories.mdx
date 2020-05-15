@@ -1,5 +1,6 @@
+import { useEffect, useReducer } from 'react'
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Grid } from '@material-ui/core'
+import { Grid, Button } from '@material-ui/core'
 
 import { useInterlock } from './useInterlock'
 
@@ -7,7 +8,7 @@ import { useInterlock } from './useInterlock'
 
 # useInterlock
 
-The main hook used to create interlock components.
+A convenient hook used to create interlock components with some useful statuses: `latched` and `ignored`
 
 ## Basic
 
@@ -17,19 +18,99 @@ Read-only interlocks
   <Story name="Basic">
     {
       () => {
-        const test = useInterlock({ label: 'interlock' })
-        let {Interlock} = test
-        let locks = ['normal', 'error', 'disconnected']
-        locks = locks.map(lock=>useInterlock({label:lock, defaultStatus:lock}))
+        const { Interlock, latched, ignored } = useInterlock({ label: 'interlock', status: 'normal' })
+        return (
+          <Grid container spacing={2} direction={'row'} aalignItems={'center'}>
+            <Grid item>
+              <Interlock />
+            </Grid>
+            <Grid item>
+              <div>
+                ignored: {ignored.toString()}
+              </div>
+              <div>
+                latched: {latched.toString()}
+              </div>
+            </Grid>
+          </Grid>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## Ignorable
+
+Interlock that can be bypassed if the user wishes. Right click on the interlock to toggle ignorance
+
+<Preview>
+  <Story name="Ignorable">
+    {
+      () => {
+        const { Interlock, ignored, latched, toggleIgnored } = useInterlock({ label: 'interlock', status: 'normal', ignorable: true, defaultIgnored: true })
         return (
           <Grid container spacing={2} direction={'row'}>
-            {
-              locks.map(({Interlock}) => 
+            <Grid item>
+              <Interlock />
+            </Grid>
+            <Grid item>
+              <Button variant={'contained'} onClick={toggleIgnored}>Toggle ignorance</Button>
+            </Grid>
+            <Grid item>
+              <div>
+                ignored: {ignored.toString()}
+              </div>
+              <div>
+                latched: {latched.toString()}
+              </div>
+            </Grid>
+          </Grid>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## Latching
+
+Interlock that must be manually reset after activated. Click on the interlock when `latched` is true to see the reset button. Click the reset button when `latched` is true AND `real status` is not `error`
+
+<Preview>
+  <Story name="Latching">
+    {
+      () => {
+        const [status, update] = useReducer(old => old === 'normal' ? 'error' : (old === 'error' ? 'disconnected' : 'normal'), 'normal')
+        const {Interlock, latched, setLatching, latching, ignored, reset} = useInterlock({label: 'interlock', status: status})
+        useEffect(() => {
+          setInterval(update, 5000)
+          setLatching(true)
+        }, [])
+        return (
+          <Grid container spacing={2} direction={'row'}>
+            <Grid item>
+              <Interlock />
+            </Grid>
+            <Grid item>
+              <Grid container direction={'column'} spacing={1}>
                 <Grid item>
-                  <Interlock />
+                  <Button variant={'contained'} onClick={reset}>toggle reset</Button>
                 </Grid>
-              )
-            }
+                <Grid item>
+                  <Button variant={'contained'} onClick={() => setLatching(!latching)}>toggle latching</Button>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <div>
+                latching: {latching.toString()}
+              </div>
+              <div>
+                latched: {latched.toString()}
+              </div>
+              <div>
+                real status: {status}
+              </div>
+            </Grid>
           </Grid>
         )
       }

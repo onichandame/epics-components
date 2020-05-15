@@ -1,0 +1,36 @@
+import { useEffect, useReducer } from 'react'
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Grid, Button } from '@material-ui/core'
+
+import { useFullInterlockList } from './useFullInterlockList'
+
+<Meta title="hooks/useFullInterlockList" />
+
+# useFullInterlockList
+
+A convenient hook used to create a table of interlock components with all the widgets layed out
+
+## Basic
+
+The basic usage
+
+<Preview>
+  <Story name="Basic">
+    {
+      () => {
+        const { FullInterlockList } = useFullInterlockList({entries: [{ label: 'normal', status: 'normal', ignorable: true }, {label: 'error', status: 'error', ignorable: true}]})
+        return (
+          <Grid style={{ width: 'auto' }} container spacing={2} direction={'row'} alignItems={'center'}>
+            <Grid item xs={12}>
+              <FullInterlockList />
+            </Grid>
+          </Grid>
+        )
+      }
+    }
+  </Story>
+</Preview>
+
+## API
+
+<Props of={useFullInterlockList}/>

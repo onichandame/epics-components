@@ -6,10 +6,9 @@ type Props = {
     label: ReactNode
     action?: () => void
   }[]
-  handleClose: () => void
 } & ComponentProps<typeof Menu>
 
-export const ActionMenu: FC<Props> = ({ actions, handleClose, ...other }) => {
+export const ActionMenu: FC<Props> = ({ actions, ...other }) => {
   return (
     <Menu {...other}>
       {actions.map(({ action, label }) =>
@@ -17,7 +16,7 @@ export const ActionMenu: FC<Props> = ({ actions, handleClose, ...other }) => {
           <MenuItem
             onClick={() => {
               action()
-              handleClose()
+              other.onClose && other.onClose({}, 'backdropClick')
             }}
           >
             {label}

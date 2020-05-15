@@ -1,3 +1,4 @@
+import { useState, useReducer, useEffect } from 'react'
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Grid } from '@material-ui/core'
 
@@ -15,17 +16,27 @@ Read-only interlocks
 
 <Preview>
   <Story name="Basic">
-    <Grid container spacing={2} direction={'row'}>
-      <Grid item>
-        <Interlock label="normal" status={'normal'}/>
-      </Grid>
-      <Grid item>
-        <Interlock label="error" status={'error'}/>
-      </Grid>
-      <Grid item>
-        <Interlock label="disconnected" status={'disconnected'}/>
-      </Grid>
-    </Grid>
+    {
+       () => {
+         const statuses = [ 'normal', 'error', 'disconnected' ]
+         return (
+           <Grid container spacing={2} direction={'row'}>
+            {
+              statuses.map(status => (
+                <>
+                  <Grid item>
+                    <Interlock label={status} status={status}/>
+                  </Grid>
+                  <Grid item>
+                    <Interlock label={status} status={status} ignored/>
+                  </Grid>
+                </>
+              ))
+            }
+           </Grid>
+         )
+       }
+    }
   </Story>
 </Preview>
 

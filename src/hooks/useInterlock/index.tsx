@@ -1,1 +1,1 @@
-export * from './useInterlock'
+export { useInterlock } from './useInterlock'

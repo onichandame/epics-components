@@ -1,34 +1,19 @@
 import React, { FC, ComponentProps } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
-import { Block } from '@material-ui/icons'
+import { ListItem, ListItemText } from '@material-ui/core'
+import clsx from 'clsx'
 
 import { InterlockStatus as Status } from '../types'
+import { Icon } from './Icon'
 
 type Props = {
   label: string
   status: Status
+
   ignored?: boolean
-} & ComponentProps<typeof ListItem>
+} & Omit<ComponentProps<typeof ListItem>, 'button'>
 
-const useIconStyles = makeStyles((theme: Theme) => ({
-  error: {
-    color: theme.palette.error.light,
-  },
-  normal: {
-    color: theme.palette.success.light,
-  },
-  disconnected: {
-    color: theme.palette.grey[400],
-  },
-}))
-
-const Icon: FC<{ ignored: boolean }> = ({ ignored, ...other }) => {
-  const styles = useIconStyles()
-  return ignored ? <Block className={styles.disconnected} {...other} /> : <></>
-}
-
-const useInterlockStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   normal: {
     backgroundColor: theme.palette.success.dark,
   },
@@ -38,33 +23,34 @@ const useInterlockStyles = makeStyles((theme: Theme) => ({
   disconnected: {
     background: theme.palette.grey[700],
   },
-  label: {
-    color: '#ffffff',
+  button: {
+    ...theme.typography.button,
   },
 }))
 
 export const Interlock: FC<Props> = ({
   label,
   status,
+
   ignored = false,
   ...other
 }) => {
-  const styles = useInterlockStyles()
+  const styles = useStyles()
   return (
     <ListItem
-      className={
+      className={clsx(
+        styles.button,
         status === 'normal'
           ? styles.normal
           : status === 'error'
           ? styles.error
           : styles.disconnected
-      }
+      )}
+      button={false as true}
       {...other}
     >
-      <ListItemIcon>
-        <Icon ignored={ignored} />
-      </ListItemIcon>
-      <ListItemText primary={label} className={styles.label} />
+      <Icon ignored={ignored} />
+      <ListItemText primary={label} />
     </ListItem>
   )
 }

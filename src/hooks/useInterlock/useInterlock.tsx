@@ -1,87 +1,120 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, MouseEvent, useState, useEffect, useReducer } from 'react'
 
 import { InterlockStatus } from '../../types'
 import { Interlock as Lock } from '../../Interlock'
 import { ActionMenu } from './ActionMenu'
 
 type Props = {
-  //text displayed on the interlock
   label: string
-  //default to 'disconnected'
-  defaultStatus?: InterlockStatus
-  //set to true if the alarm from this interlock can be ignored
+  status: InterlockStatus
+
   ignorable?: boolean
-  //whether ignored on load
   defaultIgnored?: boolean
-  //the text displayed on the ignore button
   ignoreLabel?: string
-  //the text displayed on the unignore button
   unigoreLabel?: string
-  //whether the interlock is latching
-  latching?: boolean
-  //the text displayed on the reset button
+
   resetLabel?: string
 }
 
 export const useInterlock = ({
   label,
-  defaultStatus = 'disconnected',
+  status, //true status
   ignorable = false,
   defaultIgnored = false,
   ignoreLabel = 'Ignore',
   unigoreLabel = 'Unignore',
-  latching = true,
   resetLabel = 'Reset',
 }: Props) => {
-  //meta status
-  const [activated, setActivated] = useState<boolean>(false)
-  const [ignored, setIgnored] = useState<boolean>(defaultIgnored)
-  //true status
-  const [status, setStatus] = useState<InterlockStatus>(defaultStatus)
-  //displayed status
-  const [cachedStatus, setCachedStatus] = useState<InterlockStatus>(status)
+  const [ignored, toggleIgnored] = useReducer(oldVal => !oldVal, defaultIgnored)
+
+  const [latching, setLatching] = useState<boolean>(false)
+  const [latched, setLatched] = useState<boolean>(false)
+
+  const [cache, setCache] = useState<InterlockStatus>(status)
+  const updateCache = () => {
+    if (!latched) setCache(status)
+  }
+  const updateLatched = () => {
+    if (latching) {
+      if (status === 'error') setLatched(true)
+    } else {
+      setLatched(false)
+    }
+    updateCache()
+  }
   useEffect(() => {
-    if (!activated) setCachedStatus(status)
+    updateLatched()
   }, [status])
+  useEffect(() => {
+    updateLatched()
+  }, [latched])
+  useEffect(() => {
+    updateLatched()
+  }, [latching])
+
+  const reset = () => status !== 'error' && setLatched(false)
+
+  const closedPosition = {
+    x: null,
+    y: null,
+  }
+  const [position, setPosition] = useState<{
+    x: number | null
+    y: number | null
+  }>(closedPosition)
+  const handleClick = (ev: MouseEvent<HTMLDivElement>) => {
+    ev.preventDefault()
+    setPosition({
+      x: ev.clientX - 2,
+      y: ev.clientY - 4,
+    })
+  }
+
+  const handleClose = () => setPosition(closedPosition)
+
   const Interlock: FC = () => {
-    const [anchor, setAnchor] = useState<HTMLElement | null>(null)
     return (
-      <div>
-        <Lock
-          ignored={ignored}
-          button={!ignorable || latching || activated ? true : undefined}
-          onClick={({ currentTarget }) => setAnchor(currentTarget)}
-          label={label}
-          status={cachedStatus}
+      <div onContextMenu={handleClick} style={{ cursor: 'context-menu' }}>
+        <Lock label={label} status={cache} ignored={ignored} />
+        <ActionMenu
+          actions={[
+            {
+              label: resetLabel,
+              action: latched ? reset : undefined,
+            },
+            {
+              label: 'toggleLatching',
+              action: () => setLatching(!latching),
+            },
+            {
+              label: ignored ? unigoreLabel : ignoreLabel,
+              action: ignorable ? toggleIgnored : undefined,
+            },
+          ]}
+          keepMounted
+          open={position.x !== null}
+          onClose={handleClose}
+          anchorReference="anchorPosition"
+          anchorPosition={
+            position.x !== null && position.y !== null
+              ? { top: position.y, left: position.x }
+              : undefined
+          }
         />
-        {!ignorable || latching || activated ? (
-          <ActionMenu
-            actions={[
-              {
-                label: resetLabel,
-                action: activated ? () => setActivated(false) : undefined,
-              },
-              {
-                label: ignored ? unigoreLabel : ignoreLabel,
-                action: () => setIgnored(!ignored),
-              },
-            ]}
-            anchorEl={anchor}
-            open={!!anchor}
-            handleClose={() => setAnchor(null)}
-            onClose={() => setAnchor(null)}
-          />
-        ) : (
-          <></>
-        )}
       </div>
     )
   }
+  const toggleLatching = () => setLatching(!latching)
   return {
-    ignored,
-    setStatus,
+    label,
     status,
+    ignored,
+    toggleIgnored,
+    reset,
     Interlock,
-    activated,
+    latching,
+    setLatching,
+    toggleLatching,
+    latched,
   }
 }
