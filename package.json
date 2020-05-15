@@ -16,6 +16,7 @@
     "build:docs": "yarn build-storybook",
     "test": "tsdx test --passWithNoTests",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "lint": "yarn format",
     "prepare": "tsdx build",
     "storybook": "start-storybook -p 3000",
     "build-storybook": "build-storybook -o ./docs"
